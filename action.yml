@@ -24,7 +24,7 @@ runs:
   using: composite
   steps:
     - name: Build website
-      uses: webgtx/hugo-deploy-cloudflare/.github/actions/hugo
+      uses: webgtx/hugo-deploy-cloudflare/.github/actions/hugo@master
 
     - name: Publish to Cloudflare Pages
       uses: cloudflare/pages-action@v1
