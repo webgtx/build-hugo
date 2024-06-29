@@ -1,0 +1,6 @@
+name: Hugo
+description: Build website with Hugo
+runs: 
+  using: docker
+  image: "docker.io/hugomods/hugo:exts-0.127.0"
+  entrypoint: ./.github/actions/hugo/entrypoint.sh
