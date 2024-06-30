@@ -7,5 +7,5 @@ branding:
 
 runs:
   using: docker
-  image: "docker://ghcr.io/hugomods:exts-0.127.0"
+  image: "docker://ghcr.io/hugomods/hugo:exts-0.127.0"
   entrypoint: ./entrypoint.sh
