@@ -1,35 +1,11 @@
-name: Deploy Hugo to Cloudflare Pages
-description: Deploy static websites built with Hugo to Cloudflare Pages.
+name: Build Hugo
+description: Build a static website with Hugo using GitHub Actions
 
 branding:
-  icon: upload-cloud
+  icon: package
   color: orange
 
-inputs:
-  api_token:
-    description: Cloudflare API token
-    required: true
-  account_id:
-    description: Cloudflare Account ID
-    required: true
-  project_name:
-    description: Cloudflare Project Name
-    required: true
-  public_directory: 
-    description: Public directory containing the ready-to-deploy static files
-    default: "public"
-    required: false
-
 runs:
-  using: composite
-  steps:
-    - name: Build website
-      uses: webgtx/hugo-deploy-cloudflare/.github/actions/hugo@master
-
-    - name: Publish to Cloudflare Pages
-      uses: cloudflare/pages-action@v1
-      with:
-        apiToken: ${{ inputs.api_token }}
-        accountId: ${{ inputs.account_id }}
-        projectName: ${{ inputs.project_name }}
-        directory: ${{ inputs.public_directory }}
+  using: docker
+  image: "docker.io/hugomods/hugo:exts-0.127.0"
+  entrypoint: ./entrypoint.sh

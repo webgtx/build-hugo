@@ -1,13 +1,9 @@
-# Hugo Deploy Cloudflare
+# Build Hugo
 
-Build &amp; Deploy/Publish Hugo to Cloudflare Pages
+Build a static website with Hugo using GitHub Actions
 
-| Variable                         | Description                                                                   |
-|----------------------------------|-------------------------------------------------------------------------------|
-| `api_token`                      | ***Required*** [Cloudflare API token](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)
-| `account_id`                     | ***Required*** [Cloudflare Account ID](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/)
-| `project_name`                   | ***Required*** Project Name
-| `public_directory`               | ***Optional*** Public directory containing the ready-to-deploy static files
+## How it works
+This custom action pulls the Docker image containing the extended Hugo v0.127.0, maintained by [hugomods](https://github.com/hugomods) (a non-official Hugo container-image publisher). It then builds your website within the mounted container to the `$GITHUB_WORKSPACE`. Remember to use the actions/checkout action to fetch your repository and import all your themes before you call `webgtx/build-hugo`.
 
 ## Usage
 ```yaml
@@ -22,5 +18,15 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: webgtx/alx.zolotarov.me
-      - uses: webgtx/hugo-deploy-cloudflare@master
+
+      - name: Build a website
+        uses: webgtx/build-hugo@master
+
+      - name: Publish to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ef82135ab21746f84e008a42132ca5d
+          projectName: beepboop
+          directory: public
 ```
